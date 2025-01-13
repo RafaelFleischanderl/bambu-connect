@@ -14,7 +14,8 @@ class BambuClient:
         self.fileClient = FileClient(hostname, access_code, serial)
 
     def __del__(self):
-        self.executeClient.disconnect()
+        if hasattr(self, 'executeClient') and self.executeClient is not None:
+            self.executeClient.disconnect()
 
     ############# Camera Wrappers #############
     def start_camera_stream(self, img_callback):
